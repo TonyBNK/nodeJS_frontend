@@ -1,10 +1,11 @@
 import './App.css';
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 
 
 function App() {
     const [users, setUsers] = useState([]);
+    const userNameRef = useRef(null);
 
     const getUsers = async () => {
         const response = await axios.get('http://localhost:3010/users');
@@ -12,7 +13,7 @@ function App() {
     }
 
     const addUserHandler = async () => {
-        await axios.post('http://localhost:3010/users');
+        await axios.post('http://localhost:3010/users', {name: userNameRef.current.value});
         getUsers();
     }
 
@@ -23,6 +24,7 @@ function App() {
     return (
         <div className="App">
             {users.map(user => <div>{user.name}</div>)}
+            <input ref={userNameRef}/>
             <button onClick={addUserHandler}>
                 Add user
             </button>
