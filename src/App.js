@@ -23,7 +23,20 @@ function App() {
 
     return (
         <div className="App">
-            {users.map(user => <div>{user.name}</div>)}
+            {
+                users.map(user => {
+                        const deleteUserHandler = async () => {
+                            await axios.delete(`http://localhost:3010/users/${user._id}`);
+                            getUsers();
+                        }
+
+                        return <div key={user._id}>
+                            {user.name}
+                            <button onClick={deleteUserHandler}>X</button>
+                        </div>
+                    }
+                )
+            }
             <input ref={userNameRef}/>
             <button onClick={addUserHandler}>
                 Add user
