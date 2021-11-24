@@ -1,6 +1,7 @@
 import './App.css';
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
+import {User} from "./components/User/User";
 
 
 function App() {
@@ -25,15 +26,16 @@ function App() {
         <div className="App">
             {
                 users.map(user => {
-                        const deleteUserHandler = async () => {
+                        const deleteUser = async () => {
                             await axios.delete(`http://localhost:3010/users/${user._id}`);
                             getUsers();
                         }
 
-                        return <div key={user._id}>
-                            {user.name}
-                            <button onClick={deleteUserHandler}>X</button>
-                        </div>
+                        return <User
+                            key={user._id}
+                            name={user.name}
+                            onDelete={deleteUser}
+                        />
                     }
                 )
             }
