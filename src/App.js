@@ -31,10 +31,16 @@ function App() {
                             getUsers();
                         }
 
+                    const changeUser = async (name) => {
+                        await axios.put(`http://localhost:3010/users/${user._id}`, {name});
+                        getUsers();
+                    }
+
                         return <User
                             key={user._id}
                             name={user.name}
                             onDelete={deleteUser}
+                            onChange={changeUser}
                         />
                     }
                 )

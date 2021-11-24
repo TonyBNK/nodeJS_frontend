@@ -4,7 +4,8 @@ import React, {useRef, useState} from "react";
 export const User = (
     {
         name,
-        onDelete
+        onDelete,
+        onChange
     }
 ) => {
     const changeUserNameRef = useRef(null);
@@ -15,7 +16,7 @@ export const User = (
     }
 
     const disableEditMode = () => {
-        alert(`New name: ${changeUserNameRef.current.value}`);
+        onChange(changeUserNameRef.current.value);
         setEditMode(false);
     }
 
